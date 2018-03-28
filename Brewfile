@@ -1,6 +1,8 @@
 tap "homebrew/core"
 tap "homebrew/bundle"
 brew "exa"
+brew "fd"
+brew "fzf"
 brew "git"
 brew "neovim"
 brew "openssl"

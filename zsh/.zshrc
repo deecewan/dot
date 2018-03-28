@@ -10,12 +10,29 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+autoload -U promptinit && promptinit
+prompt filthy
+
 # my common aliases
 alias ls="exa"
 alias l="ls -alh"
 alias vi="nvim"
 
+export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR="vi"
+export KEYTIMEOUT=1
 
-bindkey "^P" history-incremental-search-forward
-bindkey "^N" history-incremental-search-forward
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
+bindkey -M vicmd "k" history-beginning-search-backward
+bindkey -M vicmd "j" history-beginning-search-forward
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
