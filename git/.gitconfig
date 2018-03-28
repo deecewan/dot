@@ -1,0 +1,6 @@
+[user]
+  name = David Buchan-Swanson
+  email = david.buchanswanson@gmail.com
+[core]
+  editor = $EDITOR
+  autocrlf = input

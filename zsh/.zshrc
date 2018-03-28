@@ -14,3 +14,8 @@ compinit
 alias ls="exa"
 alias l="ls -alh"
 alias vi="nvim"
+
+export EDITOR="vi"
+
+bindkey "^P" history-incremental-search-forward
+bindkey "^N" history-incremental-search-forward

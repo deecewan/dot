@@ -108,12 +108,12 @@ setup_shell() {
 # This whole process should be more or less idempotent
 bootstrap() {
   echo "$(cyan)Starting bootstrap! 🎊 $(reset)"
-  # verify_location
-  # request_sudo_access
-  # install_homebrew
-  # install_homebrew_packages
-  # unpack_from_stow
-  # setup_shell
+  verify_location
+  request_sudo_access
+  install_homebrew
+  install_homebrew_packages
+  unpack_from_stow
+  setup_shell
   echo "$(green)🎉  Bootstrap Complete!$(reset)"
 }
 
