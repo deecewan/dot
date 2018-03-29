@@ -49,8 +49,8 @@ silent() {
 verify_location() {
   if [ ! -f Brewfile ]; then
     # pretty weak check, but oh well!
-    echo "$(red)Bootstrap Failed!$(clear)"
-    echo "$(red)You must be in the dotfiles folder$(clear)"
+    echo "$(red)Bootstrap Failed!$(reset)"
+    echo "$(red)You must be in the dotfiles folder$(reset)"
     exit 1
   fi
 }
@@ -103,6 +103,18 @@ setup_shell() {
 
   sudo chsh -s /usr/local/bin/zsh $USER > /dev/null 2>&1 
 }
+
+add_rvm() {
+  print_message "Installing RVM"
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  \curl -sSL https://get.rvm.io | rvm_ignore_dotfiles=yes bash -s stable
+  source /Users/david/.rvm/scripts/rvm
+}
+
+install_rust() {
+  print_message "Installing rust nightly"
+  \curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly --no-modify-path  
+}
 # --- END STEPS ---
 
 # This whole process should be more or less idempotent
@@ -114,6 +126,8 @@ bootstrap() {
   install_homebrew_packages
   unpack_from_stow
   setup_shell
+	add_rvm
+  install_rust
   echo "$(green)🎉  Bootstrap Complete!$(reset)"
 }
 
