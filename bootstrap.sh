@@ -116,11 +116,9 @@ install_rust() {
   \curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly --no-modify-path  
 }
 
-handle_android_setup() {
-  print_message "Setting up android"
-  touch ~/.android/repositories.cfg
-  yes | sdkmanager --licenses # accept all the licences
-  sdkmanager --update
+setup_iterm() {
+  # make iterm look for prefs in the dotfiles repo
+  defaults write com.googlecode.iterm2 PrefsCustomFolder $HOME/dotfiles/iterm
 }
 # --- END STEPS ---
 
