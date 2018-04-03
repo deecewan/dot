@@ -115,6 +115,13 @@ install_rust() {
   print_message "Installing rust nightly"
   \curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly --no-modify-path  
 }
+
+handle_android_setup() {
+  print_message "Setting up android"
+  touch ~/.android/repositories.cfg
+  yes | sdkmanager --licenses # accept all the licences
+  sdkmanager --update
+}
 # --- END STEPS ---
 
 # This whole process should be more or less idempotent
