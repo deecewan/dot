@@ -1,6 +1,7 @@
 call plug#begin()
 " NERDTree is a file explorer
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'

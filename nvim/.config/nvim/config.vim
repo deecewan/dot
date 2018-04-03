@@ -13,6 +13,5 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
 
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+let g:deoplete#enable_at_startup = 1
+let g:airline_theme='onehalfdark'

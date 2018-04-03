@@ -19,13 +19,12 @@ set splitright
 set cc=80,100
 " fold based on syntax
 set foldmethod=syntax
-" use the slate theme
-colorscheme slate
 
 " bring in external config files
 runtime plugins.vim
 runtime config.vim
 runtime keymap.vim
 
-let g:deoplete#enable_at_startup = 1
+" use a pretty theme
+colorscheme onehalfdark
 
