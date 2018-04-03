@@ -12,3 +12,20 @@ set expandtab
 set relativenumber
 " show the current line absolutely
 set number
+" set sensible split defaults
+set splitbelow
+set splitright
+" set code columns
+set cc=80,100
+" fold based on syntax
+set foldmethod=syntax
+" use the slate theme
+colorscheme slate
+
+" bring in external config files
+runtime plugins.vim
+runtime config.vim
+runtime keymap.vim
+
+let g:deoplete#enable_at_startup = 1
+
