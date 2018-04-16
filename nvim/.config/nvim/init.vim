@@ -21,6 +21,7 @@ set cc=80,100
 set foldmethod=syntax
 
 " bring in external config files
+runtime autocmd.vim
 runtime plugins.vim
 runtime config.vim
 runtime keymap.vim
