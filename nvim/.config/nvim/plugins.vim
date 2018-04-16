@@ -17,4 +17,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fszymanski/deoplete-emoji'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
+" render syntax for zplug correctly
+Plug 'zplug/vim-zplug'
+" such a great thing for splitting/joining lines
+Plug 'AndrewRadev/splitjoin.vim'
 call plug#end()
