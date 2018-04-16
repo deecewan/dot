@@ -13,11 +13,26 @@ compinit
 autoload -U promptinit && promptinit
 prompt filthy
 
+zstyle ':completion:*' menu select
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+# Plugins Go Here
+zplug 'zsh-users/zsh-syntax-highlighting'
+zplug 'rupa/z', as:plugin, use:"z.sh"
+
+if ! zplug check; then
+  zplug install
+fi
+
+zplug load
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 source ~/.config/zsh/alias.zsh
 source ~/.config/zsh/functions.zsh
 
-# my common aliases
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH:/Library/TeX/Distributions/Programs/texbin/"
 export EDITOR="vi"
 export KEYTIMEOUT=1
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) # default to older java
@@ -33,6 +48,23 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+function zle-line-init zle-keymap-select {
+  CURSOR_SHAPE=0
+  case $KEYMAP in
+    vicmd)
+      CURSOR_SHAPE=0
+      ;;
+    *)
+      CURSOR_SHAPE=1
+      ;;
+  esac
+
+  echo -n "\u001b]50;CursorShape=$CURSOR_SHAPE\x7"
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
 
 bindkey "^P" history-beginning-search-backward
 bindkey "^N" history-beginning-search-forward

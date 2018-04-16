@@ -69,3 +69,59 @@ function with_amazon_keys() {
 
   env AWS_ACCESS_KEY_ID="$key" AWS_SECRET_ACCESS_KEY="$secret" $@
 }
+
+function git-hub-clone() {
+  TO_CLONE=""
+  if [ $# -eq 1 ]; then
+    TO_CLONE="$1"
+  else
+    TO_CLONE="$1/$1"
+  fi
+
+  git clone git@github.com:$TO_CLONE.git $HOME/projects/$TO_CLONE;
+}
+
+# prints a clock for random people
+function gh_avatar_url() {
+  echo "https://avatars1.githubusercontent.com/u/$1?v=3&s=50"
+}
+
+function clock() {
+  local -A people
+  names=(
+    'David Buchan-Swanson'
+    'Alex Ghiculescu'
+    'Bryce Davies'
+  )
+  gh_avatar_ids=(
+    '4755785'
+    '509837'
+    '-1'
+  )
+  time_zones=(
+    'Australia/Brisbane'
+    'America/Los_Angeles'
+    'Europe/London'
+  )
+
+  for (( i = 1; i <= $#names; i++ )); do
+    id=$gh_avatar_ids[$i]
+    if [[ $id = "-1" ]]; then
+      echo "NO IMAGE"
+    else
+      imgcat -u $(gh_avatar_url $id)
+    fi
+    echo "${names[$i]}"
+    echo "Time: $(TZ=${time_zones[$i]} date)"
+    echo "" # newline
+  done
+}
+
+function release_test_builds() {
+  CIRCLE_SHA1="$(git rev-parse HEAD)"\
+    QA_BUILD=true\
+    CIRCLE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"\
+    CIRCLE_PR_NUMBER="$1"\
+    with_amazon_keys SandboxAdmin\
+    bundle exec fastlane branches
+}
