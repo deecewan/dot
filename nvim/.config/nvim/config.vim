@@ -15,3 +15,7 @@ let g:LanguageClient_serverCommands = {
 
 let g:deoplete#enable_at_startup = 1
 let g:airline_theme='onehalfdark'
+
+" pandoc plugin
+let g:pandoc#formatting#mode = 'ha'
+let g:pandoc#formatting#textwidth = 80

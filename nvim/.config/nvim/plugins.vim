@@ -21,4 +21,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'zplug/vim-zplug'
 " such a great thing for splitting/joining lines
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'lervag/vimtex'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
