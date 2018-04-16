@@ -119,6 +119,8 @@ install_rust() {
 setup_iterm() {
   # make iterm look for prefs in the dotfiles repo
   defaults write com.googlecode.iterm2 PrefsCustomFolder $HOME/dotfiles/iterm
+  # install the shell integration
+  curl -L https://iterm2.com/shell_integration/install_shell_integration_and_utilities.sh | bash
 }
 # --- END STEPS ---
 
