@@ -19,6 +19,11 @@ set splitright
 set cc=80,100
 " fold based on syntax
 set foldmethod=syntax
+" turn on undofile for heaps long undos
+set undofile
+
+let g:fsharpbinding_debug = 1
+let g:fsharp_completion_helptext = 1
 
 " bring in external config files
 runtime autocmd.vim
