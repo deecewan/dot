@@ -13,20 +13,21 @@
     else\
       TO_CLONE=\"$1/$2\";\
     fi;\
-    git clone git@github.com:$TO_CLONE.git $HOME/projects/$TO_CLONE\
+    git clone git@github.com:$TO_CLONE.git $HOME/projects/$TO_CLONE;\
   }; f"
   ignoreio = "!gi() { curl -L -s https://www.gitignore.io/api/$@ >> .gitignore ;}; gi"
+  ignore = "!f() { echo $1 >> .gitignore ;}; f"
 [color]
-	ui = true
+  ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
