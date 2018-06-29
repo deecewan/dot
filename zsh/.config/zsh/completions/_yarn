@@ -1,0 +1,59 @@
+#compdef yarn
+local -a base_commands=(
+  'access'
+  'add'
+  'autoclean'
+  'bin'
+  'cache'
+  'check'
+  'config'
+  'create'
+  'exec'
+  'generate-lock-entry'
+  'global'
+  'help'
+  'import'
+  'info'
+  'init'
+  'install'
+  'licenses'
+  'link'
+  'list'
+  'login'
+  'logout'
+  'node'
+  'outdated'
+  'owner'
+  'pack'
+  'publish'
+  'remove'
+  'run'
+  'tag'
+  'team'
+  'unlink'
+  'upgrade'
+  'upgrade-interactive'
+  'version'
+  'versions'
+  'why'
+  'workspace'
+  'workspaces'
+)
+
+local -a project_commands=()
+
+if [[ -f 'package.json' ]]; then
+  for item in $(cat package.json| jq -M -S --raw-output '.scripts | keys | .[] | gsub(":"; "\\:")'); do
+    project_commands+=($item': project command')
+  done
+fi
+
+local -a bin_commands=()
+
+if [[ -d node_modules ]]; then
+  for item in $(ls node_modules/.bin); do
+    bin_commands+=($item': bin command')
+  done
+fi
+
+_describe 'command' base_commands -- project_commands -- bin_commands

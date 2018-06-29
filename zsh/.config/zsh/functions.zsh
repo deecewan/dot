@@ -118,10 +118,56 @@ function clock() {
 }
 
 function release_test_builds() {
+  if [[ "-h" = $1 ]]; then
+    cat <<EOF
+      release_test_builds
+        -> Releases beta builds from your computer to Github, via S3
+
+      usage: release_test_builds <pr number> [android|ios]
+        pr number: the number of the PR to comment on on GH
+        [platform]: Optional, the platform to release. Defaults both.
+
+      options:
+        -h: print this help text
+EOF
+    echo "release_test_builds"
+    return 1;
+  fi
+
+  if [[ -z $DANGER_GITHUB_API_TOKEN ]]; then
+    echo "You must provide a github API token"
+    echo "Try adding DANGER_GITHUB_API_TOKEN=<token> to the start of the command"
+    echo "Like: \`DANGER_GITHUB_API_TOKEN=<token> $0 $@\`"
+    return 1
+  fi
+
+  if [[ -z $1 ]]; then
+    echo "ERROR: PR number not provided"
+    release_test_builds -h
+    return 1
+  fi
+
   CIRCLE_SHA1="$(git rev-parse HEAD)"\
     QA_BUILD=true\
     CIRCLE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"\
     CIRCLE_PR_NUMBER="$1"\
+    CI_PULL_REQUEST="test/$1"\
     with_amazon_keys SandboxAdmin\
-    bundle exec fastlane branches
+    bundle exec fastlane "$2" branches
 }
+
+function with_aws_credentials() {
+  CREDS=$(AWS_PROFILE=default aws\
+    sts assume-role\
+    --role-arn $ROLE_ARN\
+    --role-session-name my-sls-session\
+    --serial-number $MFA_SERIAL\
+    --token-code $1\
+    --out json)
+  env AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')\
+    AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')\
+    AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')\
+    $@
+}
+
+source ~/.config/zsh/payaus.zsh
