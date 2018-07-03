@@ -1,0 +1,26 @@
+#compdef payaus
+
+__get_commands() {
+  local -a raw_fns
+  raw_fns=(${(Mok)functions:#__payaus_*})
+  local -a base_commands
+  for i in $raw_fns; do
+    local name=${i:gs/__payaus_//}
+    base_commands+=($name\:"$(_payaus_${name}_description)")
+  done
+
+  _describe 'command' base_commands
+}
+
+_payaus() {
+  local line
+
+  _arguments -C "1: :__get_commands" '*:: :->args'
+
+  local selected=$line[1]
+  if declare -f "_payaus_${selected}_completion" >> /dev/null; then
+    _payaus_${selected}_completion $@
+  fi
+}
+
+_payaus "$@"
