@@ -22,10 +22,13 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fszymanski/deoplete-emoji'
 Plug 'junegunn/vim-emoji'
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'pedrohdz/vim-yaml-folds'
 " render syntax for zplug correctly
 Plug 'zplug/vim-zplug'
+Plug 'justinmk/vim-sneak'
 " such a great thing for splitting/joining lines
 Plug 'AndrewRadev/splitjoin.vim'
 " set up for latex + pandoc
@@ -38,4 +41,5 @@ Plug 'junegunn/limelight.vim'
 " javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'jparise/vim-graphql'
 call plug#end()

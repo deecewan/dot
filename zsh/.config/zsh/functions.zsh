@@ -1,3 +1,11 @@
+function format_js_file() {
+  if ! which prettier > /dev/null; then
+    echo "Install prettier first (yarn global add prettier)";
+    return 1;
+  fi
+
+  prettier --single-quote --trailing-comma all $@
+}
 function with_amazon_keys() {
   local chosen_profile=$1
   if [ $# -gt 0 ]; then
@@ -164,10 +172,18 @@ function with_aws_credentials() {
     --serial-number $MFA_SERIAL\
     --token-code $1\
     --out json)
-  env AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')\
-    AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')\
-    AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')\
-    $@
+  shift
+  if [[ $# -eq 0 ]]; then
+    echo "exporting credentials to this session"
+    export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')
+    export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')
+    export AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')
+  else
+    env AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')\
+      AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')\
+      AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')\
+      $@
+  fi
 }
 
 source ~/.config/zsh/payaus.zsh

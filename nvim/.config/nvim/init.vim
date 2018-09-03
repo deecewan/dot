@@ -31,6 +31,17 @@ runtime plugins.vim
 runtime config.vim
 runtime keymap.vim
 
+" after loading all my things, load a local .vimrc if present
+if filereadable(glob("./.vimrc"))
+  source ./.vimrc
+endif
+
 " use a pretty theme
 colorscheme onehalfdark
 
+hi htmlArg gui=italic
+hi Comment gui=italic
+hi Type    gui=italic
+hi htmlArg cterm=italic
+hi Comment cterm=italic
+hi Type    cterm=italic

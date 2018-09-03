@@ -398,15 +398,15 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1409 110 445 813 0 0 1920 1057 </string>
+	<string>409 186 445 679 0 0 1920 1057 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 165 697 456 0 0 1920 1057 </string>
+	<string>269 165 606 469 0 0 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-1464 246 918 381 -1920 0 1920 1057 </string>
+	<string>141 452 918 381 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>280 214 190 115 0 0 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-1920 23 1920 1034 -1920 0 1920 1057 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>-1920 0 960 1057 -1920 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1081,26 +1081,26 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.89411764705899999</real>
+				<real>0.9137254901960784</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.87450980392199995</real>
+				<real>0.89803921568627454</real>
 				<key>Red Component</key>
-				<real>0.86274509803900001</real>
+				<real>0.8901960784313725</real>
 			</dict>
 			<key>Selection Color</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.364705882353</real>
+				<real>0.4392156862745098</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.30588235294100002</real>
+				<real>0.38039215686274508</real>
 				<key>Red Component</key>
-				<real>0.27843137254900002</real>
+				<real>0.34901960784313724</real>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -1113,7 +1113,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
+			<string>xterm-256color-italic</string>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unicode Version</key>

@@ -42,6 +42,18 @@ function __payaus_attach() {
   __payaus_enter -t tmux a
 }
 
+function _payaus_remote_description() {
+  print "run commands against the remote payaus server"
+}
+function _payaus_remote_completion() {
+  local -a subcmds
+  subcmds=('start:start the server' 'stop:kill the server' 'attach:attach to the server session')
+  _describe 'command' subcmds
+}
+function __payaus_remote() {
+
+}
+
 function _payaus_enter_description() {
   print "enter description"
 }
@@ -54,12 +66,12 @@ function _payaus_sync_description() {
 }
 function _payaus_sync_completion() {
   local -a subcmds
-  subcmds=('start:start the syncer' 'stop:stop the syncer')
+  subcmds=('start:start the syncer' 'stop:stop the syncer' 'attach:attach to the sync session')
   _describe 'command' subcmds
 }
 function __payaus_sync() {
   if [[ $# -eq 0 ]]; then
-    echo "Select one of: start|stop"
+    echo "Select one of: attach|start|stop"
     echo "Example: payaus sync start"
     return 1;
   fi
@@ -81,7 +93,9 @@ function __payaus_sync() {
         return 1;
       fi
 
-      tmux new-session -s $tmux_session_name -d "cd $__PAYAUS_LOCATION && ./useful_scripts/dev-server/start-sync.sh entangler"
+      t=${2:-entangler}
+
+      tmux new-session -s $tmux_session_name -d "cd $__PAYAUS_LOCATION && ./useful_scripts/dev-server/start-sync.sh $t"
       ;;
     stop)
       if ! has_session; then
@@ -89,6 +103,13 @@ function __payaus_sync() {
         return 1;
       fi
       tmux kill-session -t $tmux_session_name
+      ;;
+    attach)
+      if ! has_session; then
+        echo "no session started - can't attach"
+        return 1;
+      fi
+      tmux attach -t $tmux_session_name
       ;;
     *)
       echo "supported options: start, stop"

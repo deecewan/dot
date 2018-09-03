@@ -30,3 +30,6 @@ nnoremap <silent> <leader>b :Buffers<cr>
 nnoremap <leader>ll :Rg<space>
 " search for word under cursor with ,lw (<leader>lookword)
 nnoremap <leader>lw :exec "Rg " . expand("<cword>")<cr>
+
+" one-key delete in parentheses
+onoremap p i)

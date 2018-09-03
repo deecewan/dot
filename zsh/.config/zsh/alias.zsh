@@ -9,10 +9,12 @@ alias l="ls -alh"
 
 # Git
 alias gst="git status"
+alias gs="gst"
 alias gd="git diff"
 alias gds="gd --staged"
 alias gc="git commit -v"
 alias gca="gc -a"
+alias gcm="gc -m"
 alias gcam="gca -m"
 alias gp="git push"
 alias ga="git add"

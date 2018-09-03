@@ -43,8 +43,8 @@ local -a base_commands=(
 local -a project_commands=()
 
 if [[ -f 'package.json' ]]; then
-  for item in $(cat package.json| jq -M -S --raw-output '.scripts | keys | .[] | gsub(":"; "\\:")'); do
-    project_commands+=($item': project command')
+  for item in $(cat package.json| jq -M -S --raw-output '.scripts | keys | .[]'); do
+    project_commands+=($item)
   done
 fi
 
@@ -52,8 +52,18 @@ local -a bin_commands=()
 
 if [[ -d node_modules ]]; then
   for item in $(ls node_modules/.bin); do
-    bin_commands+=($item': bin command')
+    bin_commands+=($item\:"test description")
   done
 fi
 
-_describe 'command' base_commands -- project_commands -- bin_commands
+_arguments "-h[output usage information]" "--help[output usage information]" "1:command:->commands" "::optional files:_files"
+
+case "$state" in
+  commands)
+    _alternative "command:built-in commands:($base_commands)" \
+      "command:package.json scripts:($project_commands)" \
+      "command:project-local binaries:(($bin_commands))"
+    ;;
+esac
+
+# _describe 'command' base_commands -- project_commands -- bin_commands

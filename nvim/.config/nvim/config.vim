@@ -13,7 +13,9 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ 'reason': ['ocaml-language-server', '--stdio'],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ 'ruby': ['orbaclerun', 'file-server'],
     \ }
+let g:LanguageClient_waitOutputTimeout = 240
 
 let g:ale_fixers = {
       \'javascript': ['eslint'],
@@ -22,6 +24,7 @@ let g:ale_fixers = {
 
 let g:deoplete#enable_at_startup = 1
 let g:airline_theme='onehalfdark'
+let g:airline_section_b = airline#section#create(['%{FugitiveHead()}'])
 
 " pandoc plugin
 let g:pandoc#formatting#mode = 'ha'
