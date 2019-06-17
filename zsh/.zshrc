@@ -12,7 +12,6 @@ compinit
 # End of lines added by compinstall
 
 autoload -U promptinit && promptinit
-prompt filthy
 
 zstyle ':completion:*' menu select
 
@@ -20,8 +19,6 @@ export NVM_DIR="$HOME/.nvm"
 source "/usr/local/opt/nvm/nvm.sh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 source ~/.env
 source ~/.config/zsh/env.zsh
@@ -32,3 +29,5 @@ source ~/.config/zsh/functions.zsh
 
 # OPAM configuration
 source /Users/david/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+eval "$(rbenv init -)"

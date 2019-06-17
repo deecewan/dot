@@ -7,6 +7,15 @@ alias ls="exa"
 # ls
 alias l="ls -alh"
 
+# almost always want this
+alias fastlane="bundle exec fastlane"
+
+# shorthand for paket
+alias paket="mono ./.paket/paket.exe"
+
+# cheeky shorthand to open the current directory in finder
+alias o="open ."
+
 # Git
 alias gst="git status"
 alias gs="gst"

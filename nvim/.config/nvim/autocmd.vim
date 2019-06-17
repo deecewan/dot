@@ -11,3 +11,14 @@ autocmd BufNewFile,BufRead .babelrc set ft=json
 " completion
 :autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
 :autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+
+" fugitive open in quickfix
+autocmd QuickFixCmdPost *status* cwindow
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+" check for parse errors with ruby
+autocmd FileType ruby compiler ruby
+
+autocmd CursorHold * silent call CocActionAsync('highlight')

@@ -1,0 +1,22 @@
+{
+  "languageserver": {
+    "flow": {
+      "command": "./node_modules/.bin/flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": [".flowconfig"]
+    }
+  },
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": " -> ",
+  "solargraph.hover": true,
+  "solargraph.diagnostics": true,
+  "solargraph.enable": true,
+  "tsserver.enableJavascript": false,
+  "coc.preferences.hoverTarget": "float"
+}

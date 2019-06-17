@@ -1,0 +1,8 @@
+snippet xmldoc "Create an XML Doc for a type"
+t.AddXmlDoc("<summary>$0</summary>")
+endsnippet
+
+snippet ptd "Create a ProvidedTypeDefinition"
+let t = ProvidedTypeDefinition(${1:"Type"}, ${2:None}, nonNullable = ${4:true})
+$0
+endsnippet

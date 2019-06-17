@@ -51,7 +51,9 @@ function _payaus_remote_completion() {
   _describe 'command' subcmds
 }
 function __payaus_remote() {
-
+  if [[ $1 == "ssh" ]]; then
+    mosh --ssh="ssh -p 10322" deployer@49.255.232.162 -p 10366
+  fi
 }
 
 function _payaus_enter_description() {

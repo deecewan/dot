@@ -1,0 +1,31 @@
+snippet flow "Add flow to the top of a file"
+/**
+ * @flow
+ */
+endsnippet
+
+snippet esdn "ESLint disable next line"
+// eslint-disable-next-line $0
+endsnippet
+
+snippet autoesdn "ESLint disable next line with automatic rule insert"
+`!p
+import subprocess
+import json
+
+bin_dir = subprocess.check_output(["yarn", "bin"]).decode().strip()
+
+snip.rv = ""
+
+try:
+    subprocess.check_output([bin_dir + "/eslint", "--format", "json", fn])
+except subprocess.CalledProcessError as e:
+    out = json.loads(e.output.decode())[0]
+		messages = out["messages"]
+		line, col = vim.current.window.cursor
+		message = next((x for x in messages if x["line"] == line + 1), None)
+		if message != None:
+			rule_id = message["ruleId"]
+			snip.rv = "// eslint-disable-next-line " + rule_id
+`
+endsnippet

@@ -21,12 +21,17 @@ set cc=80,100
 set foldmethod=syntax
 " turn on undofile for heaps long undos
 set undofile
+" start with folds disabled (enabled with zc)
+set nofoldenable
 
 let g:fsharpbinding_debug = 1
-let g:fsharp_completion_helptext = 1
+let g:fsharp_completion_helptext = 0
+" must be set before plugins are loaded
+let g:ale_completion_enabled = 1
 
 " bring in external config files
 runtime autocmd.vim
+runtime functions.vim
 runtime plugins.vim
 runtime config.vim
 runtime keymap.vim
@@ -37,7 +42,12 @@ if filereadable(glob("./.vimrc"))
 endif
 
 " use a pretty theme
-colorscheme onehalfdark
+colorscheme space_vim_theme
+
+if $ITERM_PROFILE == "light"
+  colorscheme onehalflight
+  let g:airline_theme='onehalflight'
+endif
 
 hi htmlArg gui=italic
 hi Comment gui=italic

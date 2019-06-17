@@ -6,6 +6,7 @@ function format_js_file() {
 
   prettier --single-quote --trailing-comma all $@
 }
+
 function with_amazon_keys() {
   local chosen_profile=$1
   if [ $# -gt 0 ]; then
@@ -83,7 +84,7 @@ function git-hub-clone() {
   if [ $# -eq 1 ]; then
     TO_CLONE="$1"
   else
-    TO_CLONE="$1/$1"
+    TO_CLONE="$1/$2"
   fi
 
   git clone git@github.com:$TO_CLONE.git $HOME/projects/$TO_CLONE;
@@ -125,45 +126,6 @@ function clock() {
   done
 }
 
-function release_test_builds() {
-  if [[ "-h" = $1 ]]; then
-    cat <<EOF
-      release_test_builds
-        -> Releases beta builds from your computer to Github, via S3
-
-      usage: release_test_builds <pr number> [android|ios]
-        pr number: the number of the PR to comment on on GH
-        [platform]: Optional, the platform to release. Defaults both.
-
-      options:
-        -h: print this help text
-EOF
-    echo "release_test_builds"
-    return 1;
-  fi
-
-  if [[ -z $DANGER_GITHUB_API_TOKEN ]]; then
-    echo "You must provide a github API token"
-    echo "Try adding DANGER_GITHUB_API_TOKEN=<token> to the start of the command"
-    echo "Like: \`DANGER_GITHUB_API_TOKEN=<token> $0 $@\`"
-    return 1
-  fi
-
-  if [[ -z $1 ]]; then
-    echo "ERROR: PR number not provided"
-    release_test_builds -h
-    return 1
-  fi
-
-  CIRCLE_SHA1="$(git rev-parse HEAD)"\
-    QA_BUILD=true\
-    CIRCLE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"\
-    CIRCLE_PR_NUMBER="$1"\
-    CI_PULL_REQUEST="test/$1"\
-    with_amazon_keys SandboxAdmin\
-    bundle exec fastlane "$2" branches
-}
-
 function with_aws_credentials() {
   CREDS=$(AWS_PROFILE=default aws\
     sts assume-role\
@@ -184,6 +146,24 @@ function with_aws_credentials() {
       AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')\
       $@
   fi
+}
+
+function launch_emulator() {
+  pushd "$ANDROID_SDK_ROOT/tools" || exit 1
+  if ! tmux has-session -t android_emulator; then
+    tmux new-session -s android_emulator -d
+  fi
+  tmux send -t android_emulator.0 'emulator @Nexus_5X_API_25' 'C-m'
+  popd || exit 1
+}
+
+function attach_emulator() {
+  if ! tmux has-session -t android_emulator; then
+    echo -e "\\e[34mThe android emulator is not running\\e[0m"
+    exit 1
+  fi
+
+  tmux attach-session -t android_emulator
 }
 
 source ~/.config/zsh/payaus.zsh

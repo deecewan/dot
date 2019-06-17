@@ -3,8 +3,10 @@ source $ZPLUG_HOME/init.zsh
 
 function load_plugins() {
   # add all plugins here
-  zplug 'zsh-users/zsh-syntax-highlighting'
   zplug 'rupa/z', as:plugin, use:"z.sh"
+  zplug 'subnixr/minimal', from:github, use:minimal.zsh, as:theme
+  zplug 'lib/history', from:oh-my-zsh
+  zplug 'zdharma/fast-syntax-highlighting'
 }
 
 load_plugins
