@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+echo "running global pre-commit hook"
+
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "master" ]; then
+  echo "Do not commit to master."
+  exit 1
+fi
+
+if [ -f "$(git rev-parse --show-toplevel)/.git/hooks/pre-commit" ]; then
+  echo "running local pre-commit hook"
+  "$(git rev-parse --show-toplevel)/.git/hooks/pre-commit" "$@"
+fi

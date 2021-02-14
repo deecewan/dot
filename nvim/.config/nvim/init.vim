@@ -24,25 +24,26 @@ set undofile
 " start with folds disabled (enabled with zc)
 set nofoldenable
 
-let g:fsharpbinding_debug = 1
-let g:fsharp_completion_helptext = 0
 " must be set before plugins are loaded
 let g:ale_completion_enabled = 1
+let g:python3_host_prog = "/usr/local/bin/python3"
 
-" bring in external config files
-runtime autocmd.vim
+colorscheme ThemerVim
+
+" " bring in external config files
 runtime functions.vim
 runtime plugins.vim
 runtime config.vim
 runtime keymap.vim
+runtime autocmd.vim
 
 " after loading all my things, load a local .vimrc if present
 if filereadable(glob("./.vimrc"))
   source ./.vimrc
 endif
 
-" use a pretty theme
-colorscheme space_vim_theme
+" " use a pretty theme
+" colorscheme space_vim_theme
 
 if $ITERM_PROFILE == "light"
   colorscheme onehalflight

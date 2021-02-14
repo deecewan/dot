@@ -3,6 +3,7 @@
 # renaming
 alias vi="nvim"
 alias ls="exa"
+alias cat="bat"
 
 # ls
 alias l="ls -alh"
@@ -28,13 +29,20 @@ alias gcam="gca -m"
 alias gp="git push"
 alias ga="git add"
 alias gap="ga -p"
-alias gco="git checkout"
-alias gcon="git checkout -b"
-alias gclear="git checkout --"
+alias gco="echo \"use \\\`git switch\\\` (\\\`gsw\\\`) or \\\`git restore\\\` (\\\`gre\\\`) instead\""
+alias gsw="git switch"
+alias gre="git restore"
+alias gswc="git switch -c"
+alias grs="git rebase --autostash --autosquash -i origin/master"
+alias glp="git log --pretty=oneline"
 function gpu() {
   location=${1:-origin}
   if [[ $# -gt 0 ]]; then
     shift
+  fi
+  if [[ "$(git status -sb)" =~ '\.\.\.' ]]; then
+    echo "Already has a remote!"
+    return
   fi
   echo "Setting \`$location\` as the remote"
   git push -u $location $@ $(git rev-parse --abbrev-ref HEAD)

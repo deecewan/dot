@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+echo "running global pre-push hook"
+
+# make sure we don't have any fixup! commits in the tree
+if git log --format="%s" HEAD ^master | grep -q 'fixup!'; then
+  echo "You have fixup! commits. rebase with an auto-squash to fix"
+  exit 1
+fi
+
+if [ -f "$(git rev-parse --show-toplevel)/.git/hooks/pre-push" ]; then
+  echo "running local pre-push hook"
+  "$(git rev-parse --show-toplevel)/.git/hooks/pre-push" "$@"
+fi

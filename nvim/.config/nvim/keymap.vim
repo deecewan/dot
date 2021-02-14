@@ -3,35 +3,19 @@ let mapleader = ","
 " Global mappings
 nnoremap <silent> <leader>f :GitFiles<CR>
 nnoremap <silent> <leader>F :Files<CR>
+nnoremap <silent> <leader>s :Snippets<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>N :NERDTreeFind<CR>
 "
 " Normal Mode Mapping
 nmap <leader>. <c-^>
-" nmap <silent> <leader>x :ALENextWrap<cr>
-" nmap <silent> <leader>an :ALENext<cr>
-" nmap <silent> <leader>ap :ALEPrev<cr>
-" nnoremap <silent> <leader>qf :ALEFix<CR>
-" nnoremap <silent> K :ALEHover<CR>
-" nnoremap <silent> gd :ALEGoToDefinition<CR>
-" nnoremap <silent> gh :ALEFindReferences<CR>
+nmap <silent> ]c :ALENextWrap<cr>
+nmap <silent> [c :ALEPrevWrap<cr>
+nnoremap <silent> <leader>qf :ALEFix<CR>
+nnoremap <silent> K :ALEHover<CR>
+nnoremap <silent> gd :ALEGoToDefinition<CR>
+nnoremap <silent> gh :ALEFindReferences<CR>
 nnoremap <silent> <leader>ql :lopen<CR>
-" nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> gi :call LanguageClient_textDocument_implementation()<cr>
-" nnoremap <silent> g= :call LanguageClient_textDocument_formatting()<cr>
-" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nnoremap <silent> K :call CocAction('doHover')<CR>
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 " clear the search buffer with ,<space>
 nnoremap <silent> <leader><space> :let @/=""<cr>
@@ -61,11 +45,23 @@ nnoremap <leader>lw :exec "Rg " . expand("<cword>")<cr>
 " change languages
 nmap <leader>cl :call Lang()<left>
 
-" one-key delete in parentheses
-onoremap p i)
+nmap <silent> tn :TestNearest<CR>
+nmap <silent> tf :TestFile<CR>
+nmap <silent> ts :TestSuite<CR>
+nmap <silent> tl :TestLast<CR>
+nmap <silent> tv :TestVisit<CR>
 
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
